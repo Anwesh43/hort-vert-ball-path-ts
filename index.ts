@@ -227,3 +227,25 @@ class HortVertBallPath {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    hvb : HortVertBallPath = new HortVertBallPath()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.hvb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.hvb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.hvb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
