@@ -3,7 +3,7 @@ const h : number = window.innerHeight
 const parts : number = 3  
 const scGap : number = 0.02 / parts 
 const strokeFactor : number = 90 
-const rFactor : number = 5.9 
+const rFactor : number = 12.2
 const colors : Array<string> = [
     "#F44336",
     "#03A9F4",
@@ -46,7 +46,7 @@ class DrawingUtil {
     static drawVertLinePath(context : CanvasRenderingContext2D, x : number, gap : number, ystart : number, yend : number, ) {
         for (var j = 0; j < 2; j++) {
             context.save()
-            context.translate(x + gap * j, ystart)
+            context.translate(x + 2 * gap * j, ystart)
             DrawingUtil.drawLine(context, 0, 0, 0, yend);
             context.restore()
         }
@@ -55,7 +55,7 @@ class DrawingUtil {
     static drawHorizontalPath(context : CanvasRenderingContext2D, y : number, gap : number, xstart : number, xend : number) {
         for (var j = 0; j < 2; j++) {
             context.save()
-            context.translate(xstart, y + gap * j)
+            context.translate(xstart, y + 2 * gap * j)
             DrawingUtil.drawLine(context, 0, 0, xend, 0)
             context.restore()
         }
@@ -72,8 +72,8 @@ class DrawingUtil {
         const xDist : number = w - 2 * offset 
         const yStart : number = h - offset 
         const yDist : number = h - 2 * offset 
-        DrawingUtil.drawHorizontalPath(context,h - offset - r, r, xStart, xStart + xDist * sf1)
-        DrawingUtil.drawVertLinePath(context, offset, r,  yStart, yStart - yDist * sf1)       
+        DrawingUtil.drawHorizontalPath(context,h - offset - 2 * r, r, xStart, xDist * sf1)
+        DrawingUtil.drawVertLinePath(context, offset, r,  yStart, -yDist * sf1)       
         DrawingUtil.drawCircle(context, xStart + r + (xDist - 2 * r) * sf3, yStart - r, r * sf2)
         DrawingUtil.drawCircle(context, offset + r, yStart - r - (yDist - 2 * r) * sf3, r * sf2)
     } 
